@@ -28,8 +28,7 @@ export function sanitize(text) {
  */
 export function getImageUrl(filename, type = 'contactos') {
   if (!filename) return null;
-  // La URL base se resuelve desde config.json en runtime
-  return `/api/uploads/${type}/${encodeURIComponent(filename)}`;
+  return `https://fulage.alwaysdata.net/api/uploads/${type}/${encodeURIComponent(filename)}`;
 }
 
 /**

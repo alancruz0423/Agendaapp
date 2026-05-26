@@ -76,7 +76,6 @@ function refreshContacts() {
         </Button>
       </div>
       
-      <!-- Alertas -->
       <Alert 
         v-if="alert.show" 
         :type="alert.type"
@@ -95,7 +94,6 @@ function refreshContacts() {
         {{ contactsStore.error }}
       </Alert>
       
-      <!-- Barra de búsqueda -->
       <div class="search-bar">
         <Input
           name="search"
@@ -113,13 +111,11 @@ function refreshContacts() {
         </button>
       </div>
       
-      <!-- Estado de carga -->
       <div v-if="contactsStore.loading && !contactsStore.contacts.length" class="loading">
         <div class="spinner"></div>
         <p>Cargando contactos...</p>
       </div>
       
-      <!-- Lista vacía -->
       <div v-else-if="!contactsStore.loading && !filteredContacts.length" class="empty-state">
         <div class="empty-state-icon">📭</div>
         <h3>
@@ -133,7 +129,6 @@ function refreshContacts() {
         </Button>
       </div>
       
-      <!-- Grid de contactos -->
       <div v-else class="contacts-grid">
         <ContactCard
           v-for="contact in filteredContacts"
@@ -143,7 +138,6 @@ function refreshContacts() {
         />
       </div>
       
-      <!-- Botón de recargar -->
       <div v-if="contactsStore.contacts.length" class="agenda-footer">
         <Button @click="refreshContacts" variant="outline" size="sm">
           🔄 Actualizar
@@ -155,86 +149,56 @@ function refreshContacts() {
 
 <style scoped>
 .agenda-page {
-  padding: 2rem 0;
-  min-height: calc(100vh - 72px);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7c3aed, #14b8a6);
+  padding: 2rem;
 }
 
-.agenda-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid #e2e8f0;
+.contacts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
-.agenda-header h1 {
-  font-size: 1.75rem;
+.contact-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.contact-body {
+  padding: 1rem;
+}
+
+.contact-name {
+  font-size: 1.2rem;
   font-weight: 700;
-  color: #1e293b;
+  color: #1f2937;
 }
 
-.search-bar {
-  position: relative;
-  margin-bottom: 1.5rem;
-  max-width: 500px;
+.contact-phone {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
 }
 
-.search-bar :deep(.form-input) {
-  padding-right: 2.5rem;
+.contact-actions {
+  display: flex;
+  gap: 0.5rem;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 0.75rem;
 }
 
-.search-clear {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #64748b;
-  cursor: pointer;
-  font-size: 1.1rem;
-  padding: 0.25rem;
-}
-
-.search-clear:hover {
-  color: #1e293b;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 4rem 2rem;
-  color: #64748b;
-}
-
-.empty-state-icon {
-  font-size: 4rem;
-  margin-bottom: 1rem;
-  opacity: 0.5;
-}
-
-.empty-state h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
-}
-
-.agenda-footer {
-  text-align: center;
-  padding-top: 2rem;
-}
-
-@media (max-width: 640px) {
-  .agenda-header {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
-  .agenda-header .btn {
-    width: 100%;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

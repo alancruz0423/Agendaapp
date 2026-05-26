@@ -89,3 +89,123 @@ async function handleDelete() {
     </div>
   </article>
 </template>
+<style scoped>
+.contact-card {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 0.5s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+.contact-image-container {
+  text-align: center;
+}
+
+.contact-image {
+  width: 100%;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  border-bottom: 3px solid #7c3aed;
+}
+
+.contact-placeholder {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  background: #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #7c3aed;
+}
+
+.contact-info {
+  flex: 1;
+}
+
+.contact-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+}
+
+.contact-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #374151;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.contact-detail-icon {
+  font-size: 1.1rem;
+}
+
+.contact-notes {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-top: 0.5rem;
+}
+
+.text-muted {
+  color: #9ca3af;
+  font-size: 0.8rem;
+}
+
+.contact-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.btn {
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline {
+  border: 2px solid #7c3aed;
+  color: #7c3aed;
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.btn-danger {
+  border: 2px solid #ef4444;
+  color: #ef4444;
+  background: transparent;
+}
+
+.btn-danger:hover {
+  background: #ef4444;
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>

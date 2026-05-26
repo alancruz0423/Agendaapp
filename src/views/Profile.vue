@@ -67,22 +67,8 @@ async function handleSubmit() {
 }
 
 async function handleImageUpload({ file, preview }) {
-  // En una implementación completa, subirías la imagen al backend
-  // Aquí simulamos la actualización del preview
   previewUrl.value = preview;
   
-  // Para producción:
-  // const formData = new FormData();
-  // formData.append('imagen', file);
-  // const response = await fetch('/api/auth/editar.php?upload=1', {
-  //   method: 'POST',
-  //   headers: { 'Authorization': `Bearer ${authStore.token}` },
-  //   body: formData
-  // });
-  // const result = await response.json();
-  // if (result.success) {
-  //   formData.value.foto = result.filename;
-  // }
 }
 
 function formatDate(dateString) {
@@ -171,7 +157,6 @@ function goBack() {
         </form>
       </div>
       
-      <!-- Sección de seguridad -->
       <div class="security-section card mt-4">
         <h3 class="card-title">🔐 Seguridad</h3>
         <p class="text-muted">
@@ -193,45 +178,54 @@ function goBack() {
 
 <style scoped>
 .profile-page {
-  padding: 2rem 0;
-  min-height: calc(100vh - 72px);
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7c3aed, #14b8a6);
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 700px;
 }
 
 .profile-header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  justify-content: space-between;
   margin-bottom: 1.5rem;
-}
-
-.btn-back {
-  background: none;
-  border: none;
-  color: #4f46e5;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0.5rem;
-}
-
-.btn-back:hover {
-  color: #4338ca;
+  color: #fff;
 }
 
 .profile-header h1 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  margin: 0;
+}
+
+.btn-back {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-back:hover {
+  transform: translateX(-4px);
 }
 
 .profile-card {
-  max-width: 600px;
-  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 2rem;
+  animation: fadeIn 0.5s ease;
 }
 
 .profile-avatar-section {
   text-align: center;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid #e2e8f0;
   margin-bottom: 1.5rem;
 }
 
@@ -240,19 +234,23 @@ function goBack() {
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-  margin: 0 auto 1rem;
-  border: 4px solid #4f46e5;
-  background: #e2e8f0;
+  border: 4px solid #7c3aed;
+  box-shadow: 0 4px 12px rgba(124,58,237,0.3);
+  margin-bottom: 1rem;
 }
 
 .profile-avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #e5e7eb;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: white;
-  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #7c3aed;
+  margin: 0 auto 1rem;
 }
 
 .profile-info {
@@ -261,33 +259,48 @@ function goBack() {
 }
 
 .profile-username {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 0.25rem;
+  color: #1f2937;
 }
 
 .profile-registered {
-  color: #64748b;
-  font-size: 0.875rem;
+  color: #6b7280;
+  font-size: 0.9rem;
 }
 
 .profile-form {
-  padding-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 .profile-actions {
   display: flex;
   justify-content: flex-end;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .security-section {
-  max-width: 600px;
-  margin: 1.5rem auto 0;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 1.5rem;
+  animation: fadeIn 0.5s ease;
 }
 
-.security-section .card-title {
-  margin-bottom: 0.5rem;
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.text-muted {
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

@@ -16,12 +16,11 @@ export const contactService = {
    * @param {string} token - Token de autorización
    * @param {number} id - ID del contacto
    */
-  async get(token, id) {
-    return await apiRequest('contactos/detalle.php', {
-      params: { id },
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-  },
+   async get(token, id) {
+  return await apiRequest(`contactos/detalle.php?id=${id}`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+},
 
   /**
    * Crear nuevo contacto

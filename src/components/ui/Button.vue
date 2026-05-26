@@ -52,6 +52,7 @@ const classes = computed(() => [
 </template>
 
 <style scoped>
+/* Spinner */
 .spinner-sm {
   width: 16px;
   height: 16px;
@@ -66,8 +67,72 @@ const classes = computed(() => [
   to { transform: rotate(360deg); }
 }
 
+/* Botón deshabilitado */
 .btn-disabled {
   opacity: 0.6;
   cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Tamaños */
+.btn-sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+.btn-md {
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+}
+
+.btn-lg {
+  padding: 0.8rem 1.6rem;
+  font-size: 1.1rem;
+}
+
+/* Full width */
+.w-full {
+  width: 100%;
+}
+
+/* Variantes */
+.btn-primary {
+  background: linear-gradient(90deg, #7c3aed, #14b8a6);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+  background: linear-gradient(90deg, #14b8a6, #7c3aed);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #0d9488;
+}
+
+.btn-danger {
+  background: var(--color-danger);
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #dc2626;
+}
+
+.btn-outline {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--color-primary);
+  color: #fff;
 }
 </style>

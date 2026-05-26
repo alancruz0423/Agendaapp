@@ -105,45 +105,49 @@ function goBack() {
 </template>
 
 <style scoped>
-.contact-form-page {
-  padding: 2rem 0;
-  min-height: calc(100vh - 72px);
-}
-
-.form-header {
+.form-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7c3aed, #14b8a6);
+  padding: 2rem;
   display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.btn-back {
-  background: none;
-  border: none;
-  color: #4f46e5;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 0.5rem;
-  transition: color 0.2s;
-}
-
-.btn-back:hover {
-  color: #4338ca;
-}
-
-.form-header h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1e293b;
-  margin: 0;
+  justify-content: center;
 }
 
 .form-card {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  max-width: 600px;
-  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 2rem;
+  max-width: 500px;
+  width: 100%;
+  animation: fadeIn 0.5s ease;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-header h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+.form-error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5rem;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

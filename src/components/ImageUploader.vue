@@ -139,27 +139,40 @@ function triggerFileInput() {
 </template>
 
 <style scoped>
+.image-uploader {
+  margin-top: 1rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
 .image-preview {
   position: relative;
   width: 100%;
   aspect-ratio: 1;
   border: 2px dashed #cbd5e1;
-  border-radius: 8px;
+  border-radius: 20px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.3s ease;
   background: #f8fafc;
   overflow: hidden;
+  animation: fadeIn 0.5s ease;
 }
 
 .image-preview:hover,
 .image-preview:focus {
-  border-color: #4f46e5;
+  border-color: #7c3aed;
   background: #f1f5f9;
   outline: none;
 }
 
 .image-preview.has-image {
   border-style: solid;
+  border-color: #7c3aed;
 }
 
 .preview-image {
@@ -174,22 +187,23 @@ function triggerFileInput() {
   align-items: center;
   justify-content: center;
   height: 100%;
-  color: #64748b;
+  color: #6b7280;
   text-align: center;
   padding: 1rem;
 }
 
 .image-placeholder-icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
   margin-bottom: 0.5rem;
+  color: #7c3aed;
 }
 
 .image-remove {
   position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 28px;
-  height: 28px;
+  top: 10px;
+  right: 10px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: #ef4444;
   color: white;
@@ -199,7 +213,7 @@ function triggerFileInput() {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease, background 0.3s ease;
   z-index: 1;
 }
 
@@ -208,7 +222,22 @@ function triggerFileInput() {
   transform: scale(1.1);
 }
 
+.form-error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.text-muted {
+  color: #9ca3af;
+}
+
 .image-input {
   display: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

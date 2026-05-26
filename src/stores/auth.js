@@ -4,36 +4,31 @@ import { authService } from '@/services/authService';
 import { handleApiError } from '@/utils/helpers';
 
 export const useAuthStore = defineStore('auth', () => {
-  // Estado
   const token = ref(localStorage.getItem('auth_token') || null);
   const user = ref(JSON.parse(localStorage.getItem('auth_user') || 'null'));
   const loading = ref(false);
   const error = ref(null);
 
-  // Getters
   const isAuthenticated = computed(() => !!token.value && !!user.value);
   const userPhoto = computed(() => user.value?.foto || null);
 
-  // Actions
   async function login(credentials) {
     loading.value = true;
     error.value = null;
     
     try {
       const response = await authService.login(credentials);
+      const data = response.data || response;
       
-      if (response.success && response.token) {
-        token.value = response.token;
-        user.value = response.usuario;
-        
-        // Persistir en localStorage
-        localStorage.setItem('auth_token', response.token);
-        localStorage.setItem('auth_user', JSON.stringify(response.usuario));
-        
-        return { success: true, data: response };
+      if (data.success && data.token) {
+        token.value = data.token;
+        user.value = data.usuario;
+        localStorage.setItem('auth_token', data.token);
+        localStorage.setItem('auth_user', JSON.stringify(data.usuario));
+        return { success: true, data };
       }
       
-      error.value = response.message || 'Credenciales inválidas';
+      error.value = data.message || 'Credenciales inválidas';
       return { success: false, message: error.value };
       
     } catch (err) {
@@ -50,12 +45,13 @@ export const useAuthStore = defineStore('auth', () => {
     
     try {
       const response = await authService.register(userData);
+      const data = response.data || response;
       
-      if (response.success) {
-        return { success: true, message: response.message };
+      if (data.success) {
+        return { success: true, message: data.message };
       }
       
-      error.value = response.message || 'Error en el registro';
+      error.value = data.message || 'Error en el registro';
       return { success: false, message: error.value };
       
     } catch (err) {
@@ -71,10 +67,11 @@ export const useAuthStore = defineStore('auth', () => {
     
     try {
       const response = await authService.getProfile(token.value);
+      const data = response.data || response;
       
-      if (response.success && response.usuario) {
-        user.value = response.usuario;
-        localStorage.setItem('auth_user', JSON.stringify(response.usuario));
+      if (data.success && data.usuario) {
+        user.value = data.usuario;
+        localStorage.setItem('auth_user', JSON.stringify(data.usuario));
         return user.value;
       }
       
@@ -93,14 +90,15 @@ export const useAuthStore = defineStore('auth', () => {
     
     try {
       const response = await authService.updateProfile(token.value, userData);
+      const data = response.data || response;
       
-      if (response.success && response.usuario) {
-        user.value = { ...user.value, ...response.usuario };
+      if (data.success && data.usuario) {
+        user.value = { ...user.value, ...data.usuario };
         localStorage.setItem('auth_user', JSON.stringify(user.value));
         return { success: true, data: user.value };
       }
       
-      error.value = response.message || 'Error al actualizar perfil';
+      error.value = data.message || 'Error al actualizar perfil';
       return { success: false, message: error.value };
       
     } catch (err) {
@@ -117,11 +115,9 @@ export const useAuthStore = defineStore('auth', () => {
         await authService.logout(token.value);
       } catch (err) {
         console.warn('Error en logout del backend:', err);
-        // Continuar con logout local aunque falle el backend
       }
     }
     
-    // Limpiar estado local
     token.value = null;
     user.value = null;
     localStorage.removeItem('auth_token');
@@ -139,15 +135,12 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   return {
-    // State
     token,
     user,
     loading,
     error,
-    // Getters
     isAuthenticated,
     userPhoto,
-    // Actions
     login,
     register,
     fetchProfile,

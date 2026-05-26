@@ -5,13 +5,11 @@ import { useAuthStore } from './auth';
 import { handleApiError, getImageUrl } from '@/utils/helpers';
 
 export const useContactsStore = defineStore('contacts', () => {
-  // State
   const contacts = ref([]);
   const currentContact = ref(null);
   const loading = ref(false);
   const error = ref(null);
 
-  // Actions
   async function fetchContacts() {
     const authStore = useAuthStore();
     if (!authStore.isAuthenticated) return;
@@ -21,17 +19,17 @@ export const useContactsStore = defineStore('contacts', () => {
     
     try {
       const response = await contactService.list(authStore.token);
+      const data = response.data || response;
       
-      if (response.success && Array.isArray(response.data)) {
-        // Procesar URLs de imágenes
-        contacts.value = response.data.map(contact => ({
+      if (data.success && Array.isArray(data.data)) {
+        contacts.value = data.data.map(contact => ({
           ...contact,
           fotoUrl: contact.foto ? getImageUrl(contact.foto, 'contactos') : null
         }));
         return contacts.value;
       }
       
-      error.value = response.message || 'Error al cargar contactos';
+      error.value = data.message || 'Error al cargar contactos';
       return [];
       
     } catch (err) {
@@ -51,18 +49,19 @@ export const useContactsStore = defineStore('contacts', () => {
     
     try {
       const response = await contactService.get(authStore.token, id);
+      const data = response.data || response;
       
-      if (response.success && response.data) {
+      if (data.success && data.data) {
         currentContact.value = {
-          ...response.data,
-          fotoUrl: response.data.foto 
-            ? getImageUrl(response.data.foto, 'contactos') 
+          ...data.data,
+          fotoUrl: data.data.foto 
+            ? getImageUrl(data.data.foto, 'contactos') 
             : null
         };
         return currentContact.value;
       }
       
-      error.value = response.message || 'Contacto no encontrado';
+      error.value = data.message || 'Contacto no encontrado';
       return null;
       
     } catch (err) {
@@ -82,14 +81,14 @@ export const useContactsStore = defineStore('contacts', () => {
     
     try {
       const response = await contactService.create(authStore.token, contactData);
+      const data = response.data || response;
       
-      if (response.success) {
-        // Recargar lista
+      if (data.success) {
         await fetchContacts();
-        return { success: true, message: response.message, id: response.id };
+        return { success: true, message: data.message, id: data.id };
       }
       
-      error.value = response.message || 'Error al crear contacto';
+      error.value = data.message || 'Error al crear contacto';
       return { success: false, message: error.value };
       
     } catch (err) {
@@ -109,9 +108,9 @@ export const useContactsStore = defineStore('contacts', () => {
     
     try {
       const response = await contactService.update(authStore.token, contactData);
+      const data = response.data || response;
       
-      if (response.success) {
-        // Actualizar en lista local
+      if (data.success) {
         const index = contacts.value.findIndex(c => c.id === contactData.id);
         if (index !== -1) {
           contacts.value[index] = {
@@ -125,10 +124,10 @@ export const useContactsStore = defineStore('contacts', () => {
         if (currentContact.value?.id === contactData.id) {
           currentContact.value = contacts.value[index];
         }
-        return { success: true, message: response.message };
+        return { success: true, message: data.message };
       }
       
-      error.value = response.message || 'Error al actualizar contacto';
+      error.value = data.message || 'Error al actualizar contacto';
       return { success: false, message: error.value };
       
     } catch (err) {
@@ -148,17 +147,17 @@ export const useContactsStore = defineStore('contacts', () => {
     
     try {
       const response = await contactService.delete(authStore.token, id);
+      const data = response.data || response;
       
-      if (response.success) {
-        // Eliminar de lista local
+      if (data.success) {
         contacts.value = contacts.value.filter(c => c.id !== id);
         if (currentContact.value?.id === id) {
           currentContact.value = null;
         }
-        return { success: true, message: response.message };
+        return { success: true, message: data.message };
       }
       
-      error.value = response.message || 'Error al eliminar contacto';
+      error.value = data.message || 'Error al eliminar contacto';
       return { success: false, message: error.value };
       
     } catch (err) {
@@ -175,15 +174,16 @@ export const useContactsStore = defineStore('contacts', () => {
     
     try {
       const response = await contactService.uploadImage(authStore.token, file);
+      const data = response.data || response;
       
-      if (response.success && response.filename) {
+      if (data.success && data.filename) {
         return {
-          filename: response.filename,
-          url: getImageUrl(response.filename, 'contactos')
+          filename: data.filename,
+          url: getImageUrl(data.filename, 'contactos')
         };
       }
       
-      error.value = response.message || 'Error al subir imagen';
+      error.value = data.message || 'Error al subir imagen';
       return null;
       
     } catch (err) {
@@ -213,12 +213,10 @@ export const useContactsStore = defineStore('contacts', () => {
   }
 
   return {
-    // State
     contacts,
     currentContact,
     loading,
     error,
-    // Actions
     fetchContacts,
     fetchContact,
     createContact,

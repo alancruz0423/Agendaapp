@@ -143,24 +143,25 @@ onMounted(() => {
 
 <style scoped>
 .auth-page {
-  min-height: calc(100vh - 72px);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1rem;
-  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+  background: linear-gradient(135deg, #7c3aed, #14b8a6);
+  padding: 2rem;
 }
 
 .auth-container {
   width: 100%;
-  max-width: 420px;
+  max-width: 500px;
 }
 
 .auth-card {
-  background: white;
-  border-radius: 16px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   padding: 2rem;
-  box-shadow: 0 10px 25px -5px rgb(0 0 0 / 0.1);
+  animation: fadeIn 0.5s ease;
 }
 
 .auth-header {
@@ -169,48 +170,61 @@ onMounted(() => {
 }
 
 .auth-header h1 {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  color: #1e293b;
-  margin-bottom: 0.5rem;
+  color: #7c3aed;
 }
 
 .auth-header p {
-  color: #64748b;
+  color: #6b7280;
+  font-size: 0.95rem;
 }
 
 .password-input {
+  display: flex;
+  align-items: center;
   position: relative;
 }
 
 .password-toggle {
   position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  right: 0.75rem;
   background: none;
   border: none;
   cursor: pointer;
-  font-size: 1.1rem;
-  padding: 0.25rem;
-  opacity: 0.7;
-  transition: opacity 0.2s;
+  font-size: 1.2rem;
+  color: #7c3aed;
+  transition: transform 0.2s ease;
 }
 
 .password-toggle:hover {
-  opacity: 1;
+  transform: scale(1.2);
+}
+
+.form-error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
 }
 
 .auth-footer {
   text-align: center;
   margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid #e2e8f0;
-  color: #64748b;
+  font-size: 0.9rem;
 }
 
 .auth-footer a {
-  font-weight: 500;
-  color: #4f46e5;
+  color: #14b8a6;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.auth-footer a:hover {
+  color: #7c3aed;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

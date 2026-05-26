@@ -181,6 +181,14 @@ function updateImage({ filename, url, fieldName = 'foto' }) {
 </template>
 
 <style scoped>
+.contact-form {
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 2rem;
+  animation: fadeIn 0.5s ease;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -193,9 +201,48 @@ function updateImage({ filename, url, fieldName = 'foto' }) {
   }
 }
 
+.form-group {
+  margin-top: 1rem;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.form-textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  padding: 0.75rem;
+  font-size: 0.95rem;
+  resize: vertical;
+  transition: border-color 0.3s ease;
+}
+
+.form-textarea:focus {
+  border-color: #7c3aed;
+  outline: none;
+}
+
+.form-error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
 .form-actions {
   margin-top: 1.5rem;
   padding-top: 1rem;
   border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

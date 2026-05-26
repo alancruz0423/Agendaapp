@@ -20,12 +20,10 @@ function handleLogout() {
       </router-link>
       
       <div class="nav-links">
-        <!-- Link Inicio -->
         <router-link :to="{ name: 'Home' }" class="nav-link">
           Inicio
         </router-link>
         
-        <!-- Links que requieren auth -->
         <template v-if="authStore.isAuthenticated">
           <router-link :to="{ name: 'Agenda' }" class="nav-link">
             Agenda
@@ -43,7 +41,6 @@ function handleLogout() {
           </button>
         </template>
         
-        <!-- Links para invitados -->
         <template v-else>
           <router-link :to="{ name: 'Login' }" class="nav-link">
             Iniciar sesión
@@ -59,102 +56,82 @@ function handleLogout() {
 
 <style scoped>
 .navbar {
-  background: white;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  padding: 1rem 0;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background: linear-gradient(90deg, #7c3aed, #14b8a6);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 1rem 2rem;
+  animation: fadeIn 0.5s ease;
 }
 
 .navbar-content {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
+  justify-content: space-between;
 }
 
 .nav-logo {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   font-weight: 700;
-  color: #4f46e5;
+  color: #fff;
   text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.nav-logo:hover {
+  opacity: 0.8;
 }
 
 .nav-links {
   display: flex;
-  gap: 1.5rem;
   align-items: center;
+  gap: 1rem;
 }
 
 .nav-link {
-  color: #1e293b;
-  font-weight: 500;
+  color: white;
+  font-weight: 600;
+  transition: color 0.3s ease;
   text-decoration: none;
-  padding: 0.5rem;
-  transition: color 0.2s;
 }
 
 .nav-link:hover {
-  color: #4f46e5;
+  color: #facc15; /* Amarillo */
 }
 
 .nav-user {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.nav-username {
+  margin-right: 1rem;
+  color: #fff;
   font-weight: 500;
-  color: #1e293b;
-}
-
-.btn {
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  border: none;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-sm {
-  padding: 0.375rem 0.75rem;
-  font-size: 0.875rem;
-}
-
-.btn-primary {
-  background: #4f46e5;
-  color: white;
-}
-
-.btn-primary:hover {
-  background: #4338ca;
 }
 
 .btn-outline {
+  border: 2px solid #facc15;
+  color: #facc15;
   background: transparent;
-  border: 2px solid #4f46e5;
-  color: #4f46e5;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  transition: all 0.3s ease;
 }
 
 .btn-outline:hover {
-  background: #4f46e5;
-  color: white;
+  background: #facc15;
+  color: #111827;
 }
 
-@media (max-width: 768px) {
-  .navbar-content {
-    flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .nav-links {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+.btn-primary {
+  background: #facc15;
+  color: #111827;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: #fde047;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

@@ -70,7 +70,6 @@ function onInput(field) {
     errors.value[field] = validateField(field, formData.value[field]);
   }
   
-  // Re-validar confirmación si cambia password
   if (field === 'password' && touched.value.password_confirm) {
     errors.value.password_confirm = validateField('password_confirm', formData.value.password_confirm);
   }
@@ -90,7 +89,6 @@ async function handleSubmit() {
   formMessage.value = null;
   
   if (!validateForm()) {
-    // Scroll al primer error
     const firstError = Object.keys(errors.value).find(k => errors.value[k]);
     document.querySelector(`[name="${firstError}"]`)?.focus();
     return;
@@ -104,7 +102,6 @@ async function handleSubmit() {
   formMessage.value = result.message;
   
   if (result.success) {
-    // Redirigir a login después de 2 segundos
     setTimeout(() => {
       router.push({ name: 'Login', query: { registered: '1' } });
     }, 2000);
@@ -241,20 +238,95 @@ async function handleSubmit() {
 </template>
 
 <style scoped>
-/* Reutiliza estilos de Login.vue */
 .auth-page, .auth-container, .auth-card, .auth-header,
 .password-input, .password-toggle, .auth-footer {
-  /* Los estilos se heredan de Login.vue */
 }
 
-/* Pequeños ajustes específicos */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #7c3aed, #14b8a6);
+  padding: 2rem;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 500px;
+}
+
 .auth-card {
-  max-width: 480px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 2rem;
+  animation: fadeIn 0.5s ease;
 }
 
-small.text-muted {
-  display: block;
-  margin-top: 0.25rem;
-  font-size: 0.8rem;
+.auth-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
+
+.auth-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #7c3aed;
+}
+
+.auth-header p {
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+
+.password-input {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #7c3aed;
+  transition: transform 0.2s ease;
+}
+
+.password-toggle:hover {
+  transform: scale(1.2);
+}
+
+.form-error {
+  color: #ef4444;
+  font-size: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.auth-footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.auth-footer a {
+  color: #14b8a6;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.auth-footer a:hover {
+  color: #7c3aed;
+}
+
+/* Animación */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 </style>
